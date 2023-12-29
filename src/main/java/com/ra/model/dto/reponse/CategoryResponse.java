@@ -1,33 +1,22 @@
-package com.ra.model.entity;
+package com.ra.model.dto.reponse;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import com.ra.model.entity.Product;
+import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 
 import java.util.List;
-import java.util.Set;
 
-@Entity
-public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CategoryResponse {
     private Long id;
-    @Column(unique = true)
+
     private String categoryName;
-    @Column(columnDefinition = "boolean default true")
     private Boolean status;
 
-    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
-
-    @JsonIgnore
     private List<Product> products;
 
-    public Category() {
-    }
-
-    public Category(Long id, String categoryName, Boolean status) {
-        this.id = id;
-        this.categoryName = categoryName;
-        this.status = status;
+    public CategoryResponse() {
     }
 
     public Long getId() {
