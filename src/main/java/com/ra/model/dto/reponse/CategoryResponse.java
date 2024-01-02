@@ -27,11 +27,11 @@ public class CategoryResponse {
         this.status = status;
     }
 
-    //    public CategoryResponse(Category category){
-//        this.id = category.getId();
-//        this.categoryName = category.getCategoryName();
-//        this.status = category.getStatus();
-//    }
+    public CategoryResponse(Category category){
+        this.id = category.getId();
+        this.categoryName = category.getCategoryName();
+        this.status = category.getStatus();
+    }
     public Long getId() {
         return id;
     }

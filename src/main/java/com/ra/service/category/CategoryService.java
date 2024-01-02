@@ -17,4 +17,7 @@ public interface CategoryService {
     void delete(Long id);
     Page<Category> getPaginate(Pageable pageable);
     Page<Category> getAllPaginate(Pageable pageable);
+
+    Page<CategoryResponse> searchByName(Pageable pageable,String name);
+
 }
