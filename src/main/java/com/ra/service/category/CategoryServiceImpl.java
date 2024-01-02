@@ -4,6 +4,9 @@ import com.ra.model.dto.reponse.CategoryResponse;
 import com.ra.model.entity.Category;
 import com.ra.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,19 +18,11 @@ public class CategoryServiceImpl implements CategoryService{
     @Autowired
     private CategoryRepository categoryRepository;
     @Override
-    public List<CategoryResponse> getAll() {
-        List<Category> list = categoryRepository.findAll();
-        List<CategoryResponse> categoryResponseList = new ArrayList<>();
-        for (Category category : list) {
-            CategoryResponse categoryResponse = new CategoryResponse();
-            categoryResponse.setId(category.getId());
-            categoryResponse.setCategoryName(category.getCategoryName());
-            categoryResponse.setStatus(category.getStatus());
-            categoryResponse.setProducts(category.getProducts());
-            categoryResponseList.add(categoryResponse);
-        }
-
-        return categoryResponseList;
+    public Page<CategoryResponse> getAll(Pageable pageable) {
+        // phan trang theo entity
+        Page<Category> list = categoryRepository.findAll(pageable);
+        // convert tu Page Entity => Page DTO
+        return list.map(category -> new CategoryResponse(category.getId(),category.getCategoryName(),category.getStatus()));
     }
 
     @Override
@@ -45,4 +40,16 @@ public class CategoryServiceImpl implements CategoryService{
     public void delete(Long id) {
         categoryRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Category> getPaginate(Pageable pageable) {
+        return categoryRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Category> getAllPaginate(Pageable pageable) {
+        return categoryRepository.findAll(pageable);
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.ra.model.dto.reponse;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ra.model.entity.Category;
 import com.ra.model.entity.Product;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
@@ -14,11 +15,23 @@ public class CategoryResponse {
     private String categoryName;
     private Boolean status;
 
+    @JsonIgnore
     private List<Product> products;
 
     public CategoryResponse() {
     }
 
+    public CategoryResponse(Long id, String categoryName, Boolean status) {
+        this.id = id;
+        this.categoryName = categoryName;
+        this.status = status;
+    }
+
+    //    public CategoryResponse(Category category){
+//        this.id = category.getId();
+//        this.categoryName = category.getCategoryName();
+//        this.status = category.getStatus();
+//    }
     public Long getId() {
         return id;
     }
